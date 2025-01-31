@@ -1,4 +1,4 @@
-# -Ecommerce-Follow-Along
+# Ecommerce-Follow-Along
 
 
 ## Project Description
