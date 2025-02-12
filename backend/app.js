@@ -1,30 +1,45 @@
 const express = require("express");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const fileUpload = require("express-fileupload");
-const ErrorHandler = require("./utils/ErrorHandler");
-const errorMiddleware = require("./middleware/error");
-const connectDatabase = require("./db/Database");
 
 const app = express();
 
-// Middleware
+const ErrorHandler = require("./middleware/error");
+
+const cookieParser = require("cookie-parser");
+
+// const bodyParser = require("body-parser");
+
+const cors=require('cors')
 app.use(express.json());
+
+app.use(express.urlencoded({extended:true}))
+
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(fileUpload());
 
-// Import Routes
-const userRoutes = require("./routes/user");
-app.use("/api/v1/user", userRoutes);  
+app.use("/",express.static("uploads"));
 
-// ✅ Default Route to Fix "Cannot GET /"
-app.get("/", (req, res) => {
-    res.send("Welcome to the E-Commerce API!");
+// app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+
+app.use(cors())
+
+// config
+
+if (process.env.NODE_ENV !== "PRODUCTION") {
+
+require("dotenv").config({
+
+path: "backend/config/.env",
+
 });
+};
 
-// Error handling middleware
-app.use(errorMiddleware);
+//import Routes
+
+const user = require("./controller/user");
+
+app.use("/api/v2/user", user);
+
+// it's for ErrorHandling
+
+app.use(ErrorHandler);
 
 module.exports = app;
-``
