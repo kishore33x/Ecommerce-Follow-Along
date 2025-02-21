@@ -1,4 +1,6 @@
-import LoginPage from './pages/login'
-import SignUpPage from './components/SignUpPage';
+import LoginPage from './pages/Login';
+import SignUpPage from './pages/Signup';
+import Homepage from './pages/Home';
 
-export {LoginPage};
+
+export{LoginPage, SignUpPage, Homepage};
