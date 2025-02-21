@@ -37,3 +37,15 @@ In this milestone, we implemented secure user authentication using JSON Web Toke
 Key Updates: JWT-Based Authentication: Users receive a signed token upon login or signup. Protected Routes: Implemented middleware to restrict access to authorized users only. Password Hashing: Used bcrypt.js to securely hash passwords before storing them. User Login & Logout: Developed API endpoints for user login and logout functionality. Persistent Authentication: Implemented token storage for maintaining user sessions.
 
 With this milestone, we have laid the foundation for secure user access and protected API endpoints, ensuring a robust authentication system.
+
+Milestone 7 (Backend - User Login Authentication)
+Implemented user login functionality with secure password validation using bcrypt.
+
+Key Updates:
+
+Created a login API endpoint to authenticate users.
+Retrieved user data from the database based on email/username.
+Used bcrypt to compare entered passwords with stored hashed passwords.
+Implemented error handling for invalid credentials.
+With this milestone, users can securely log in to the application, ensuring safe authentication.
+
