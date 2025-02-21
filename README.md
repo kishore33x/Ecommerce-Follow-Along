@@ -47,5 +47,15 @@ Created a login API endpoint to authenticate users.
 Retrieved user data from the database based on email/username.
 Used bcrypt to compare entered passwords with stored hashed passwords.
 Implemented error handling for invalid credentials.
-With this milestone, users can securely log in to the application, ensuring safe authentication.
+With this milestone, users can securely log in to the application, ensuring safe authentication. 
+
+Milestone 8 (Frontend - Product Card Component & Homepage)
+Designed a reusable product card component and created a structured homepage layout to display products effectively.
+
+Key Updates:
+
+Developed a dynamic product card component using props to display product details.
+Implemented array mapping to render multiple product cards dynamically.
+Styled the homepage using a grid/flexbox layout for better organization.
+With this milestone, the homepage now showcases products in a clean and visually appealing manner.
 
