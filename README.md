@@ -73,5 +73,66 @@ With this milestone, the homepage now showcases products in a clean and visually
 - Implemented validation to ensure proper data integrity.
 - Built a POST endpoint to receive and store product details in MongoDB.
 - Ensured validation before saving product data to prevent errors.
-- Prepared for future enhancements such as admin-only access and shop profiles.
+- Prepared for future enhancements such as admin-only access and shop profiles.  
+
+## Milestone 11: Dynamic Home Page
+
+Today, we will make our home page that will display all the products dynamic. We will write an endpoint that will send all the data that was saved in MongoDB using the add products page earlier.
+
+Learning Goals 🎯
+By the end of this milestone, you will:
+
+Understand how to write an endpoint that will extract and send data from MongoDB.
+Learn how to receive data at the frontend.
+Learn how to display that data dynamically using the product card component created earlier.
+
+## Milestone 12: My Products Page
+Overview
+In this milestone, we created a "My Products" page that displays all the products added by the user, filtered by their email.
+
+Features
+Backend: Added an endpoint to fetch products by user email.
+Frontend: Created a function to retrieve and display products dynamically.
+Component: Utilized the Card component to present each product.
+Got it! Here’s a simplified version of the README file without code:
+
+## Milestone 13: Edit Product Functionality
+Learning Goals 🎯
+Write an endpoint to update existing data in MongoDB.
+Autofill forms with previous data for editing.
+
+## Milestone 14: Delete Product Functionality
+Learning Goals 🎯
+Write an endpoint to update existing data in MongoDB.
+Deletes the product from the page
+Great, you're working on Milestone 15 of your follow-along project. Here’s a short README file tailored to your milestone:
+
+## Milestone 15: Responsive navbar added
+Description
+This milestone involves creating a responsive Navbar component with links to all pages in your application and ensuring smooth and easy navigation.
+
+Learning Goals 
+By the end of this milestone, you will:
+
+Learn how to create a Nav component.
+Understand how to reuse the same component across multiple pages.
+Features
+Links to Home, Add product, and Cart pages.
+Responsive design for all screen sizes.
+Reusable Navbar component.
+
+## Milestone 16: Product in detail Page is added
+Description
+This milestone involves creating a Page where it contains more detailed information about the product
+
+Features
+Links to Buy, Cart pages.
+Responsive design for all screen sizes.
+Shows similar products at bottom of Page.
+
+## Milestone 17: Cart Functionality in Node.js + MongoDB
+This project adds cart functionality to an existing Node.js + MongoDB application. The functionality includes creating a cart, adding products to the cart, retrieving cart details, and removing products from the cart. Here’s a professional README.md file tailored for Milestone 18 — Fetching products inside a cart using the user's email:
+
+## Milestone 18: Fetch Products in Cart using User Email
+This project adds functionality to fetch products inside a user's cart using their email. The backend endpoint retrieves cart data, including full product details, and returns it in a structured format to display on the cart page.
 
