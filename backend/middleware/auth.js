@@ -1,18 +1,36 @@
 const jwt = require("jsonwebtoken");
-const User = require("../model/user");
-const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("./catchAsyncError");
+const User = require("../User/UserSchema");
+require("dotenv").config();
 
-// Check if user is authenticated
-exports.isAuthenticated = catchAsyncErrors(async (req, res, next) => {
-    const { token } = req.headers;
+const authenticate = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-        return next(new ErrorHandler("Please login to access this resource", 401));
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Access Denied! No token provided." });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id);
+    const token = authHeader.split(" ")[1];
+    const secretKey = process.env.SECRET_KEY || "fallback_secret";
 
+    let decoded;
+    try {
+      decoded = jwt.verify(token, secretKey);
+    } catch (error) {
+      return res.status(403).json({ message: "Invalid or expired token" });
+    }
+
+    const user = await User.findById(decoded.userId).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found. Authentication failed." });
+    }
+
+    req.user = user;
     next();
-});
+  } catch (error) {
+    console.error("Auth Middleware Error:", error);
+    return res.status(500).json({ message: "Authentication error" });
+  }
+};
+
+module.exports = authenticate;
