@@ -1,6 +1,6 @@
-Ecommerce-Follow-Along
+##Ecommerce-Follow-Along
 
-Milestone 1:
+##Milestone 1:
 Project Overview:
 
 This project will guide you through building a full-stack e-commerce web application using the MERN stack (MongoDB, Express.js, React.js, Node.js). You will learn how to implement key functionalities such as user authentication, product management, and order handling while gaining hands-on experience with REST APIs, database schema design, and frontend development with React.
@@ -19,26 +19,26 @@ Node.js
 JWT for authentication
 REST API
 
-Milestone 2 : Project Setup and Login Page
+##Milestone 2 : Project Setup and Login Page
 Created a structured folder hierarchy for the project. Set up a React app for the frontend. Set up a Node.js server for the backend. Configured Tailwind CSS for streamlined styling. Added optional extensions for improving development efficiency. Built a functional and styled Login Page for the frontend.
 
-Milestone 3 :
+##Milestone 3 :
 Set up dedicated folders for organizing backend code effectively. Initialized and configured a Node.js server to handle API requests. Connected the application to MongoDB to store and manage data. Implemented basic error handling to ensure smooth server operation.
 
-Milestone 4 :
+##Milestone 4 :
 created a User Model to define how user data is structured in the database also developed a User Controller to manage user interactions, like adding or retrieving data. Additionally, configured Multer to handle file uploads, allowing users to store files such as images.
 
-Milestone 5 (Frontend - Signup page) :
+##Milestone 5 (Frontend - Signup page) :
 developed the frontend signup page using React. The page includes a form for users to register, with input validation for fields like email and password. integrated the page with the backend API to handle user registration and implemented error handling to ensure a smooth user experience.
 
-Milestone 6 :
+##Milestone 6 :
 In this milestone, we implemented secure user authentication using JSON Web Tokens (JWT). This ensures that users can securely register, log in, and maintain authentication across sessions.
 
 Key Updates: JWT-Based Authentication: Users receive a signed token upon login or signup. Protected Routes: Implemented middleware to restrict access to authorized users only. Password Hashing: Used bcrypt.js to securely hash passwords before storing them. User Login & Logout: Developed API endpoints for user login and logout functionality. Persistent Authentication: Implemented token storage for maintaining user sessions.
 
 With this milestone, we have laid the foundation for secure user access and protected API endpoints, ensuring a robust authentication system.
 
-Milestone 7 (Backend - User Login Authentication)
+##Milestone 7 (Backend - User Login Authentication)
 Implemented user login functionality with secure password validation using bcrypt.
 
 Key Updates:
@@ -49,7 +49,7 @@ Used bcrypt to compare entered passwords with stored hashed passwords.
 Implemented error handling for invalid credentials.
 With this milestone, users can securely log in to the application, ensuring safe authentication. 
 
-Milestone 8 (Frontend - Product Card Component & Homepage)
+##Milestone 8 (Frontend - Product Card Component & Homepage)
 Designed a reusable product card component and created a structured homepage layout to display products effectively.
 
 Key Updates:
@@ -135,4 +135,40 @@ This project adds cart functionality to an existing Node.js + MongoDB applicatio
 
 ## Milestone 18: Fetch Products in Cart using User Email
 This project adds functionality to fetch products inside a user's cart using their email. The backend endpoint retrieves cart data, including full product details, and returns it in a structured format to display on the cart page.
+
+Milestone 18: Fetch Products in Cart using User Email
+This project adds functionality to fetch products inside a user's cart using their email. The backend endpoint retrieves cart data, including full product details, and returns it in a structured format to display on the cart page.
+
+##Milestone 19: Cart Functionality Implementation
+Overview 
+In this milestone, we implemented a cart system with both frontend and backend functionalities. The cart page is designed to display products dynamically, allowing users to adjust the quantity of each product with + and - buttons. Backend endpoints were created to handle quantity updates efficiently.
+
+Key Features 
+Cart Frontend Page:
+Displays all the products in the user's cart.
+Each product has:
+Name
+Price
+Product Image
+Quantity Counter with + and - buttons.
+
+##Milestone 20: Profile Page and User Data API
+Overview 
+In this milestone, we implemented a profile page and a backend endpoint to enhance user experience and manage user data. The profile page displays key user information such as profile photo, name, email, and address. It allows adding new addresses while handling cases where no addresses exist.
+
+Key Features 
+Backend Endpoint:
+
+Created an endpoint to retrieve all user data.
+Supports sending user data via email (optional, as per requirements).
+Frontend Profile Page:
+
+Displays:
+Profile Photo, Name, and Email in one section.
+Address in another section.
+Provides an option to Add Address.
+Displays a fallback message "No address found" if no addresses are available.
+Dynamic Design:
+
+The profile page is designed with responsiveness and usability in mind.
 
