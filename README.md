@@ -169,3 +169,269 @@ Dynamic Design:
 
 The profile page is designed with responsiveness and usability in mind.
 
+## Address Form – Milestone 21
+Overview
+This project implements a frontend Address Form that allows users to input their address details, including:
+
+Country
+City
+Address Line 1 and 2
+Zip Code
+Address Type
+
+Features
+React-based address form
+Uses state management to store input data
+Navigates to the form when clicking Add Address in the profile page
+Submits the form data via API
+
+Submission
+Code pushed to GitHub
+Repository is publicly accessible
+README updated with progress
+
+## Milestone 22 - Save Address in User Profile
+Overview
+In this milestone, we created a backend endpoint to store user addresses in the database. The endpoint receives address details from the frontend form and appends them to the address array in the user collection.
+
+Learning Outcomes
+Implemented an API endpoint to handle address storage
+Updated the user collection to include multiple addresses
+Strengthened backend skills for handling user profiles
+
+Submission Details
+Code pushed to GitHub repository
+Repository is publicly accessible
+
+## Milestone 23 - Implementing Place Order and Select Address Page
+Overview
+In this milestone, we implemented the Place Order functionality in our e-commerce project. This includes adding a button inside the cart page, creating a select address page, and setting up the backend to handle addresses.
+
+Features Implemented
+Place Order button added inside the cart page, redirects to the select address page
+Select Address Page displays all saved addresses and allows the user to choose a delivery address
+Backend API for addresses created to fetch user addresses
+Order Schema defined for storing order details in MongoDB
+
+Steps Completed
+Added a Place Order button inside the cart page
+Created a select address page with all saved addresses
+Developed a backend API to retrieve user addresses
+Defined a MongoDB schema to store order details
+
+Submission Details
+Code pushed to GitHub
+Repository is publicly accessible
+README updated
+
+## Milestone 24 - Order Confirmation Page
+Overview
+In this milestone, we implemented the Order Confirmation Page where users can review their order details before finalizing the purchase.
+
+Key Features
+Display all the ordered products
+Show the selected delivery address
+Calculate and display the total price of the cart
+Provide a Place Order button to confirm the purchase
+
+Implementation Steps
+Fetch and display ordered products
+Show the selected address for delivery
+Calculate the total order value dynamically
+Add a Place Order button to proceed with checkout
+
+Submission Details
+Code pushed to GitHub
+Public repository link updated
+Assignment submitted successfully
+
+## Milestone 25 - Place Order Endpoint
+Overview
+In this milestone, we created a backend endpoint to handle order placement in our e-commerce application.
+
+Key Tasks
+Developed an endpoint to receive product, user, and address details
+Retrieved the user ID using their email
+Created separate orders for each product with the same address
+Stored order details in the MongoDB orders collection using the order schema
+
+Learning Outcome
+Gained experience in handling order processing through a backend API
+
+Submission
+Code pushed to GitHub public repository
+README updated with milestone progress
+Repository link shared for submission
+
+## Milestone 26 - Get User Orders Endpoint
+Overview
+In this milestone, we created a backend endpoint to retrieve all orders placed by a user.
+
+Key Tasks
+Developed an endpoint that receives the user's email
+Retrieved the user ID using their email
+Fetched all orders associated with the user's ID from the database
+Sent the list of orders in the response
+
+Learning Outcome
+Gained experience in fetching and managing user-specific order data
+
+Submission
+Code pushed to GitHub public repository
+README updated with milestone progress
+Repository link shared for submission
+
+## Milestone 27 - My Orders Page
+Overview
+In this milestone, we created a My Orders page for our frontend. This page fetches and displays all user orders by sending a GET request to the my-orders endpoint using the user’s email.
+
+Learning Goals
+Implement a frontend page to display user orders
+Send a request to retrieve order data from the backend
+Integrate the My Orders page into the navbar for easy access
+
+Implementation Steps
+Created a My Orders page
+Sent a GET request to fetch user orders using their email
+Displayed the retrieved orders on the page
+Updated the navbar to include the My Orders page
+
+Submission Guidelines
+Code pushed to the GitHub repository
+Repository is publicly accessible
+README updated with milestone details
+Repository link submitted
+
+## Milestone 28 - Cancel Order Feature
+Overview
+In this milestone, we enhanced the My Orders page by adding a Cancel Order button and implemented a backend endpoint to handle order cancellations.
+
+Learning Goals
+Enable users to cancel placed orders
+Implement order cancellation logic in the frontend and backend
+Prevent the cancel button from appearing for already canceled orders
+
+Implementation Steps
+Added a Cancel Order button for each order in the My Orders page
+Ensured the button is hidden for already canceled orders
+Created a backend endpoint to receive an order ID, find the order, update its status to canceled, and save the changes
+
+Submission Guidelines
+Code pushed to the GitHub repository
+Repository is publicly accessible
+README updated with milestone details
+Repository link submitted
+
+## Milestone 29 - PayPal Integration
+Overview
+In this milestone, we started integrating an online payment gateway using the PayPal API in the application.
+
+Key Implementations
+Created a PayPal Developer Account and set up a Sandbox Account
+Retrieved and saved the Sandbox User ID and Client ID
+Updated the order confirmation page with two payment options
+Cash on Delivery (COD)
+Online Payment via PayPal
+Implemented radio buttons to toggle between COD and PayPal payment
+Prepared the UI to display PayPal payment buttons
+
+Next Steps
+Implement the functionality for PayPal payment processing in the upcoming milestone
+
+## Milestone 30 - PayPal Payment Integration
+Overview
+This project implements an online payment gateway using the PayPal API in a React application.
+
+Features
+Integrated PayPal API for secure payments
+Used react-paypal-js for seamless UI integration
+Supports multiple payment methods like credit or debit cards
+
+Installation
+Clone the repository
+Install dependencies
+Add your PayPal client key in a .env file
+Start the application
+
+Usage
+Access the payment page and proceed with PayPal payment
+
+Technologies Used
+React
+PayPal API
+react-paypal-js
+
+Successfully completed Milestone 30
+
+## Milestone 31 - Global State Management with Redux
+Overview
+In this milestone, we implemented global state management using Redux to store user data.
+
+Features Implemented
+Installed react-redux for state management
+Created a store folder with store.js to configure a Redux store with a userReducer
+Implemented userActions.js with a setEmail action to update the email
+Wrapped the App component with the Redux Provider in index.js
+
+Installation
+Clone the repository
+Install dependencies
+Start the project
+
+Usage
+The global state now holds the user email, which can be accessed and updated from any component
+
+Next Steps
+In the next milestone, we will implement email state management across components
+
+## Milestone 32 - Global State Management with Redux
+Overview
+In this milestone, we implemented Redux to manage the global state for user authentication. Specifically, we stored the user's email in the Redux store and accessed it across all pages.
+
+Steps Completed
+Used useDispatch to store the email in the global state upon login
+Used useSelector to access the email across all pages
+Integrated Redux for centralized state management
+
+Technologies Used
+React
+Redux Toolkit
+React-Redux
+
+## Milestone 33 - JWT Token and Cookie Storage
+Overview
+In this milestone, we implemented JSON Web Token authentication by generating a token and storing it in a cookie for secure session management.
+
+Steps Completed
+Installed jsonwebtoken package
+Used sign method to generate a JWT with email and user ID
+Set maxAge to define the token expiration time
+Stored the JWT inside a cookie in the response
+
+Technologies Used
+Node.js
+Express.js
+JSON Web Token
+Cookie Parser
+
+## Milestone 34 - JWT Token Validation
+Overview
+This milestone focuses on implementing JWT authentication by validating the token stored in cookies. It ensures that only authenticated users can access protected routes.
+
+Learning Goals
+Extract the JWT token from browser cookies and send it to the server
+Validate the received JWT token on the backend
+Prevent unauthorized users from accessing protected pages
+
+Implementation Steps
+Extract JWT Token from Cookies
+Validate JWT Token in Backend
+Protect Routes
+Enforce Authentication in Frontend
+
+## Milestone 35 - Deployment
+Frontend and Backend Deployed
+
+Conclusion
+By implementing JWT validation, we enhance security and ensure users can only access resources they are authorized for.
+
