@@ -1,36 +1,34 @@
-const jwt = require("jsonwebtoken");
-const User = require("../User/UserSchema");
-require("dotenv").config();
-
-const authenticate = async (req, res, next) => {
-  try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Access Denied! No token provided." });
-    }
-
-    const token = authHeader.split(" ")[1];
-    const secretKey = process.env.SECRET_KEY || "fallback_secret";
-
-    let decoded;
-    try {
-      decoded = jwt.verify(token, secretKey);
-    } catch (error) {
-      return res.status(403).json({ message: "Invalid or expired token" });
-    }
-
-    const user = await User.findById(decoded.userId).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found. Authentication failed." });
-    }
-
-    req.user = user;
-    next();
-  } catch (error) {
-    console.error("Auth Middleware Error:", error);
-    return res.status(500).json({ message: "Authentication error" });
-  }
-};
-
-module.exports = authenticate;
+const jwt = require('jsonwebtoken');
+  const User = require('../model/user');
+  const ErrorHandler = require('../utils/ErrorHandler');
+  const catchAsyncErrors = require('./catchAsyncErrors');
+  
+  const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+      const token = req.cookies.token;
+      console.log("Token from cookies:", token);
+  
+      if (!token) {
+          return next(new ErrorHandler("Please login to access this resource", 401));
+      }
+  
+      let decodedData;
+      try {
+          // Verify token using your JWT secret
+          decodedData = jwt.verify(token, "randomtoken1234567890");
+          console.log("Decoded data:", decodedData);
+      } catch (err) {
+          // If this block executes, jwt.verify() threw an error
+          console.error("JWT verification error:", err.name, err.message);
+          return next(new ErrorHandler("Invalid or expired token", 401));
+      }
+  
+      // Now attach user details to request
+      req.user = await User.findById(decodedData.id);
+      if (!req.user) {
+          return next(new ErrorHandler("User not found", 404));
+      }
+  
+      next();
+  });
+  
+  module.exports = { isAuthenticatedUser };

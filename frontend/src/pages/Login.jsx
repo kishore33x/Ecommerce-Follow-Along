@@ -1,11 +1,11 @@
-import Signin from '../components/auth/Login'
+import Login from "../components/auth/Login"
 
-function Login() {
+function LoginPage() {
   return (
     <div>
-      <Signin/>
+      <Login />
     </div>
   )
 }
 
-export default Login;
+export default LoginPage

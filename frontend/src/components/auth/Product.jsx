@@ -1,59 +1,39 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Card from "./Card";
 
-const Product = () => {
-    const [products, setProducts] = useState([]);
+function Product({ _id, name, images, description, price }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
-
     useEffect(() => {
-        axios.get("http://localhost:8000/products")
-            .then((response) => {
-                if (Array.isArray(response.data)) {
-                    setProducts(response.data);
-                } else {
-                    console.error("Unexpected response format:", response.data);
-                }
-            })
-            .catch((error) => {
-                console.error("Error fetching products:", error);
-            });
-    }, []);
+        if (!images || images.length === 0) return;
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, [images]);
 
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`http://localhost:8000/products/${id}`);
-            setProducts(products.filter(product => product._id !== id));
-        } catch (error) {
-            console.error("Error deleting product:", error);
-        }
-    };
-
+    const currentImage = images[currentIndex];
+    
     return (
-        <div className="flex justify-center items-center w-full">
-            <div className="min-h-screen w-full bg-gray-700 flex flex-col items-center p-5">
-                <h1 className="text-4xl md:text-5xl font-bold text-center text-white mb-10">
-                    Our Products
-                </h1>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
-                    {products.map((product) => (
-                        <Card
-                            key={product._id}
-                            id={product._id}
-                            name={product.name}
-                            price={product.price}
-                            image={`http://localhost:8000/uploads/${product.images?.[0]}`}
-                            onAddToCart={() => console.log("Added to cart:", product.name)}
-                            onBuyNow={() => console.log("Buying:", product.name)}
-                            onEdit={() => navigate(`/edit-product/${product._id}`)}
-                            onDelete={() => handleDelete(product._id)}
-                        />
-                    ))}
-                </div>
-            </div>
-        </div>
-    );
-};
+        <div className="bg-neutral-200 p-4 rounded-lg shadow-md flex flex-col justify-between">
+      <div className="w-full ">
+        <img src={`http://localhost:3000${currentImage}`} // Ensure the URL is correct\
+          alt={name}
+          className="w-full h-56 object-cover rounded-lg mb-2"
+        />
+        <h2 className="text-lg font-bold">{name}</h2>
+        <p className="text-sm opacity-75 mt-2">{description}</p>
+      </div>
+      <div className="w-full mt-4">
+        <p className="text-lg font-bold my-2">${price.toFixed(2)}</p>
+        <button className="w-full text-white px-4 py-2 rounded-md bg-neutral-900 hover:bg-neutral-700 transition duration-300"
+          onClick={() => navigate(`/product/${_id}`)}
+        >
+          More Info
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default Product;

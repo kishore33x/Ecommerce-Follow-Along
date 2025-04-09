@@ -1,147 +1,209 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { React, useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
+import ValidationFormObject from "../../validation";
+import { useDispatch } from 'react-redux';
+ import { setemail } from "../../store/userActions";
 
 const Signup = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [gender, setGender] = useState([]);
-  const [address, setAddress] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  const handleCheckboxChange = (e) => {
-    setGender([e.target.value]); // Allow only one selection
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("gender", gender[0] || "");
-    formData.append("address", address);
-    if (profilePic) formData.append("profilePic", profilePic);
-
-    try {
-      const response = await axios.post("http://localhost:8000/user/signup", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      if (response.status === 201) {
-        console.log("Signup successful!");
-        navigate("/login");
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong.");
+  const [visible, setVisible] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+  const [errors, setErrors] = useState({});
+  const handleFileSubmit = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const filePath = URL.createObjectURL(file);
+      console.log("File path:", filePath);
+      setAvatar(file);
     }
   };
-
+  const validateFields = () => {
+    const nameError = ValidationFormObject.validteName(name);
+    const emailError = ValidationFormObject.validteEmail(email);
+    const passwordError = ValidationFormObject.validtePass(password);
+    const newErrors = {};
+    if (nameError !== true) newErrors.name = nameError;
+    if (emailError !== true) newErrors.email = emailError;
+    if (passwordError !== true) newErrors.password = passwordError;
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateFields()) {
+      return; // Stop submission if validation fails
+    }
+    const newForm = new FormData();
+    newForm.append("file", avatar);
+    newForm.append("name", name);
+    newForm.append("email", email);
+    newForm.append("password", password);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Accept": "any",
+      },
+    };
+ // Axios request to backend
+ axios
+ .post("http://localhost:3000/api/v2/user/create-user", newForm, config)
+ .then((res) => {
+   alert("User created successfully!"); // Success message from server
+   console.log(res.data); // Success response from server
+ })
+ .catch((err) => {
+   alert(err.response ? err.response.data.message : err.message); // Error message from server
+   console.error(err.response ? err.response.data : err.message); // Error handling
+ });
+};
   return (
-    <div className="min-h-screen bg-gray-700 flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-        <h2 className="text-xl font-bold text-center mb-4 text-gray-700">Sign Up</h2>
-
-        {error && <p className="text-red-500 text-center mb-2">{error}</p>}
-
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Full Name</label>
-            <input
-              type="text"
-              placeholder="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 border rounded text-sm focus:outline-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Email</label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border rounded text-sm focus:outline-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Password</label>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border rounded text-sm focus:outline-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Gender</label>
-            <div className="flex gap-3">
-              {["Male", "Female", "Other"].map((option) => (
-                <label key={option} className="flex items-center text-sm">
-                  <input
-                    type="checkbox"
-                    value={option}
-                    checked={gender.includes(option)}
-                    onChange={handleCheckboxChange}
-                    className="mr-1"
-                  />
-                  {option}
-                </label>
-              ))}
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Register as a new user
+        </h2>
+      </div>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Full Name
+              </label>
+              <div className="mt-1">
+                <input
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                )}
+              </div>
             </div>
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Address</label>
-            <input
-              type="text"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              className="w-full p-2 border rounded text-sm focus:outline-blue-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-gray-700 font-medium text-sm">Profile Picture</label>
-            <input
-              type="file"
-              onChange={(e) => setProfilePic(e.target.files[0])}
-              className="w-full p-1 border rounded text-sm focus:outline-blue-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition text-sm"
-          >
-            Sign Up
-          </button>
-        </form>
-
-        <p className="text-center mt-3 text-gray-600 text-sm">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 hover:underline">
-            Sign In
-          </Link>
-        </p>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div className="mt-1 relative">
+                <input
+                  type={visible ? "text" : "password"}
+                  name="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={`appearance-none block w-full px-3 py-2 border ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  } rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+                />
+                {visible ? (
+                  <AiOutlineEye
+                    className="absolute right-2 top-2 cursor-pointer"
+                    size={25}
+                    onClick={() => setVisible(false)}
+                  />
+                ) : (
+                  <AiOutlineEyeInvisible
+                    className="absolute right-2 top-2 cursor-pointer"
+                    size={25}
+                    onClick={() => setVisible(true)}
+                  />
+                )}
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                )}
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="avatar"
+                className="block text-sm font-medium text-gray-700"
+              ></label>
+              <div className="mt-2 flex items-center">
+                <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
+                  {avatar ? (
+                    <img
+                      src={URL.createObjectURL(avatar)}
+                      alt="avatar"
+                      className="h-full w-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <RxAvatar className="h-8 w-8" />
+                  )}
+                </span>
+                <label
+                  htmlFor="file-input"
+                  className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                >
+                  <span>Upload a file</span>
+                  <input
+                    type="file"
+                    name="avatar"
+                    id="file-input"
+                    accept=".jpg,.jpeg,.png"
+                    onChange={handleFileSubmit}
+                    className="sr-only"
+                  />
+                </label>
+              </div>
+            </div>
+            <div>
+              <button
+                type="submit" onClick={handleSubmit}
+                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+              >
+                Submit
+              </button>
+            </div>
+            <div className="flex items-center w-full">
+              <h4>Already have an account?</h4>
+              <Link to="/login" className="text-blue-600 pl-2">
+                Sign In
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
-
 export default Signup;
